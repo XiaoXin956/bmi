@@ -22,6 +22,7 @@ class RecordView extends StatelessWidget {
         bmiChart = state.chartData ?? [];
       } else if (state is RecordDelState) {
         bmiData.removeAt(state.index);
+        bmiChart.removeAt(state.index);
       }
       return _buildPage(context);
     });
@@ -118,8 +119,6 @@ class RecordView extends StatelessWidget {
                   }else if(state==4) {
                     textColor = Colors.red;
                   }
-
-
                   return DataRow(cells: [
                     DataCell(Text(value.date.toString())),
                     DataCell(Text(value.height.toString())),
