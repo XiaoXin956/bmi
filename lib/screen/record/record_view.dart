@@ -107,16 +107,16 @@ class RecordView extends StatelessWidget {
                     }
                   }
 
-                  Color textColor =Colors.black;
-                  if(state==0) {
+                  Color textColor = Colors.black;
+                  if (state == 0) {
                     textColor = Colors.grey;
-                  }else if(state==1) {
+                  } else if (state == 1) {
                     textColor = Colors.green;
-                  }else if(state==2) {
+                  } else if (state == 2) {
                     textColor = Colors.yellow;
-                  }else if(state==3) {
+                  } else if (state == 3) {
                     textColor = Colors.redAccent;
-                  }else if(state==4) {
+                  } else if (state == 4) {
                     textColor = Colors.red;
                   }
                   return DataRow(cells: [
