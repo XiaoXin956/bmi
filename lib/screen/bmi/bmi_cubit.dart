@@ -23,11 +23,11 @@ class BmiCubit extends Cubit<BmiState> {
 
   void initBmiData({String? languageCode = "zh",}) {
     emit(BmiInitDataState(bmiData: [
-      {"minValue": 0.00, "maxValue": 18.4, "label": "偏瘦", "labelValue": "<= 18.4", "bgColor": Colors.grey},
-      {"minValue": 18.5, "maxValue": 23.9, "label": "正常", "labelValue": "18.5 ~ 23.9", "bgColor": Colors.green},
-      {"minValue": 24.0, "maxValue": 27.9, "label": "过重", "labelValue": "24.0 ~ 27.9", "bgColor": Colors.yellow},
-      {"minValue": 28.0, "maxValue": 32.0, "label": "肥胖", "labelValue": ">= 28.0", "bgColor": Colors.redAccent},
-      {"minValue": 32.1, "maxValue": double.maxFinite, "label": "重度肥胖", "labelValue": ">= 32.4", "bgColor": Colors.red},
+      {"minValue": 0.00, "maxValue": 18.4, "state": 0, "stateValue": "<= 18.4", "bgColor": Colors.grey},
+      {"minValue": 18.5, "maxValue": 23.9, "state": 1, "stateValue": "18.5 ~ 23.9", "bgColor": Colors.green},
+      {"minValue": 24.0, "maxValue": 27.9, "state": 2, "stateValue": "24.0 ~ 27.9", "bgColor": Colors.yellow},
+      {"minValue": 28.0, "maxValue": 32.0, "state": 3, "stateValue": ">= 28.0", "bgColor": Colors.redAccent},
+      {"minValue": 32.1, "maxValue": double.maxFinite, "state": 4, "stateValue": ">= 32.4", "bgColor": Colors.red},
     ]));
   }
 
@@ -41,49 +41,28 @@ class BmiCubit extends Cubit<BmiState> {
   }
 
   // 计算BMI值
-  void calculateBmi({String? languageCode = "zh", required String kg, required String heightValue, required bool checkSaveData}) async {
+  void calculateBmi({ required String kg, required String heightValue, required bool checkSaveData}) async {
     double heightValueTemp = int.parse(heightValue) / 100;
-    double bmiValue = int.parse(kg) / (heightValueTemp * heightValueTemp);
+    double bmiValue = double.parse((int.parse(kg) / (heightValueTemp * heightValueTemp)).toStringAsExponential(2));
     if (checkSaveData) {
-      // save
       boxCollection ??= await BoxCollection.open("bmi_db", {"bmi_data"});
       final bmiBox = await boxCollection?.openBox("bmi_data");
-
-      String label = "";
+      int state = 0;
       if (bmiValue <= 18.4) {
-        if (languageCode == "zh") {
-          label = "偏瘦";
-        } else {
-          label = "Thin";
-        }
+        state = 0;
       } else if (bmiValue >= 18.5 && bmiValue <= 23.9) {
-        if (languageCode == "zh") {
-          label = "正常";
-        } else {
-          label = "Normal";
-        }
+        state = 1;
       } else if (bmiValue >= 24.0 && bmiValue <= 27.9) {
-        if (languageCode == "zh") {
-          label = "过重";
-        } else {
-          label = "Overweight";
-        }
+        state = 2;
       } else if (bmiValue >= 28.0 && bmiValue <= 32.0) {
-        if (languageCode == "zh") {
-          label = "肥胖";
-        } else {
-          label = "Obesity";
-        }
+        state = 3;
       } else {
-        if (languageCode == "zh") {
-          label = "重度肥胖";
-        } else {
-          label = "Severe obesity";
-        }
+        state = 4;
       }
+
       var bmiBean = BmiBean(
         date: DateTool.getToDay(),
-        label: label,
+        state: state,
         bmiValue: "$bmiValue",
         height: heightValue,
         kg: kg,

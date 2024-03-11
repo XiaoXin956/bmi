@@ -17,5 +17,5 @@ class RootLanguageChangedState extends RootState {
   RootLanguageChangedState({required this.languageCode});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [languageCode];
 }

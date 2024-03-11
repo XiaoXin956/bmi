@@ -23,5 +23,8 @@
   "bmi_value": "BMI",
   "remark": "备注",
   "op": "操作",
-  "del": "删除"
+  "del": "删除",
+  "current_bmi_value": "你当前的 BMI 值是：",
+  "bmi_standard": "BMI 标准"
+
 }

@@ -16,11 +16,13 @@ void main() {
 
   HiveUtils.initHive();
 
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
+
+  String languageCode = "zh";
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             if(state is RootLanguageChangedState){
               print("选择的语言是：${state.languageCode}");
+              languageCode = state.languageCode;
               S.load(Locale(state.languageCode));
             }
             return MaterialApp(
@@ -54,6 +57,7 @@ class MyApp extends StatelessWidget {
                 Locale("zh"),
                 Locale("en"),
               ],
+              locale: Locale(languageCode),
             );
           },
         ));

@@ -27,11 +27,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "bmi_overweight": MessageLookupByLibrary.simpleMessage("Overweight"),
         "bmi_range": MessageLookupByLibrary.simpleMessage("BMI range"),
         "bmi_record": MessageLookupByLibrary.simpleMessage("My BMI history"),
+        "bmi_standard": MessageLookupByLibrary.simpleMessage("BMI Standard"),
         "bmi_thin": MessageLookupByLibrary.simpleMessage("Underweight"),
         "bmi_value": MessageLookupByLibrary.simpleMessage("BMI"),
         "calculate_bmi": MessageLookupByLibrary.simpleMessage("Calculate BMI"),
         "centimeter": MessageLookupByLibrary.simpleMessage("cm"),
         "classification": MessageLookupByLibrary.simpleMessage("Category"),
+        "current_bmi_value": MessageLookupByLibrary.simpleMessage(
+            "What is your current BMI value"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "del": MessageLookupByLibrary.simpleMessage("Del"),
         "free_calculation": MessageLookupByLibrary.simpleMessage(

@@ -24,11 +24,12 @@ class _BmiViewState extends State<BmiView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      bmiCubit?.initBmiData(languageCode: Localizations.localeOf(context).languageCode,);
+      bmiCubit?.initBmiData(
+        languageCode: Localizations.localeOf(context).languageCode,
+      );
     });
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class _BmiViewState extends State<BmiView> {
         h(20),
         textWidget(text: S.of(context).title_content, textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         h(15),
-        Text( S.of(context).title_sub),
+        Text(S.of(context).title_sub),
         h(15),
         LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -93,15 +94,14 @@ class _BmiViewState extends State<BmiView> {
           h(15),
           textWidget(text: S.of(context).free_calculation),
           h(15),
-          textWidget(text: (bmiValue > 0) ? "您当前的 BMI 值是：${bmiValue}" : ""),
+          textWidget(text: (bmiValue > 0) ? "${S.of(context).current_bmi_value}${bmiValue}" : ""),
           h(15),
           Row(children: [
-            textWidget(text: S.of(context).me_height),
+            Expanded(flex: 1, child: textWidget(text: S.of(context).me_height)),
             Expanded(
+                flex: 7,
                 child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "请输入身高",
-                    ),
+                    decoration: InputDecoration(),
                     onChanged: (value) {
                       heightValue = value;
                     })),
@@ -109,12 +109,14 @@ class _BmiViewState extends State<BmiView> {
           ]),
           h(15),
           Row(children: [
-            textWidget(text: "${S.of(context).kg}"),
-            Expanded(child: TextField(
-              onChanged: (value) {
-                kgValue = value;
-              },
-            )),
+            Expanded(flex: 1, child: textWidget(text: "${S.of(context).kg}")),
+            Expanded(
+                flex: 7,
+                child: TextField(
+                  onChanged: (value) {
+                    kgValue = value;
+                  },
+                )),
             textWidget(text: "${S.of(context).unit}: ${S.of(context).kg}"),
           ]),
           h(15),
@@ -130,7 +132,7 @@ class _BmiViewState extends State<BmiView> {
           ),
           ElevatedButton(
               onPressed: () {
-                bmiCubit?.calculateBmi(languageCode: Localizations.localeOf(context).languageCode,kg: kgValue, heightValue: heightValue, checkSaveData: checkSaveData);
+                bmiCubit?.calculateBmi(kg: kgValue, heightValue: heightValue, checkSaveData: checkSaveData);
               },
               child: textWidget(text: "${S.of(context).calculate_bmi}")),
         ],
@@ -144,15 +146,21 @@ class _BmiViewState extends State<BmiView> {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.grey, width: 1)),
       child: Column(
         children: [
-          textWidget(text: "BMI 标准"),
-          Row(
-            children: [
-              SizedBox(
-                width: 30,
-              ),
-              Expanded(child: Center(child: textWidget(text: "${S.of(context).classification}"))),
-              Expanded(child: textWidget(text: "${S.of(context).bmi_range}")),
-            ],
+          textWidget(text: "${S.of(context).bmi_standard}"),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    width: 30,
+                  ),
+                ),
+                Expanded(flex:2,child: textWidget(text: "${S.of(context).classification}")),
+                Expanded(flex:2,child: textWidget(text: "${S.of(context).bmi_range}")),
+              ],
+            ),
           ),
           Divider(
             height: 1,
@@ -163,10 +171,42 @@ class _BmiViewState extends State<BmiView> {
               children: bmiData.map((e) {
                 double minValue = e["minValue"];
                 double maxValue = e["maxValue"];
-                String label = e["label"];
-                String labelValue = e["labelValue"];
+                int state = e["state"];
+                String stateValue = e["stateValue"];
                 Color bgColor = e["bgColor"];
-
+                String label = "";
+                String languageCode = Localizations.localeOf(context).languageCode;
+                if (state == 0) {
+                  if (languageCode == "zh") {
+                    label = "偏瘦";
+                  } else {
+                    label = "Thin";
+                  }
+                } else if (state == 1) {
+                  if (languageCode == "zh") {
+                    label = "正常";
+                  } else {
+                    label = "Normal";
+                  }
+                } else if (state == 2) {
+                  if (languageCode == "zh") {
+                    label = "过重";
+                  } else {
+                    label = "Overweight";
+                  }
+                } else if (state == 3) {
+                  if (languageCode == "zh") {
+                    label = "肥胖";
+                  } else {
+                    label = "Obesity";
+                  }
+                } else if (state == 4) {
+                  if (languageCode == "zh") {
+                    label = "重度肥胖";
+                  } else {
+                    label = "Severe obesity";
+                  }
+                }
                 return Container(
                   color: bgColor,
                   child: Column(
@@ -175,18 +215,25 @@ class _BmiViewState extends State<BmiView> {
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           children: [
-                            (bmiValue >= minValue && bmiValue <= maxValue)
-                                ? SizedBox(
-                                    width: 30,
-                                    child: Icon(
-                                      Icons.arrow_forward_outlined,
-                                      color: Colors.blue,
-                                    ))
-                                : SizedBox(
-                                    width: 30,
-                                  ),
-                            Expanded(child: Center(child: textWidget(text: "${label}"))),
-                            Expanded(child: textWidget(text: "${labelValue}")),
+                            Expanded(
+                                flex: 1,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    (bmiValue!=0 && bmiValue >= minValue && bmiValue <= maxValue)
+                                        ? SizedBox(
+                                            width: 20,
+                                            child: Icon(
+                                              Icons.arrow_forward_ios_sharp,
+                                              color: Colors.white,
+                                            ))
+                                        : SizedBox(
+                                            width: 20,
+                                          )
+                                  ],
+                                )),
+                            Expanded(flex: 2, child: textWidget(text: "${label}")),
+                            Expanded(flex: 2, child: textWidget(text: "${stateValue}")),
                           ],
                         ),
                       ),

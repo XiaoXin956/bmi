@@ -27,11 +27,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "bmi_overweight": MessageLookupByLibrary.simpleMessage("过重"),
         "bmi_range": MessageLookupByLibrary.simpleMessage("BMI 范围"),
         "bmi_record": MessageLookupByLibrary.simpleMessage("BMI 历史记录"),
+        "bmi_standard": MessageLookupByLibrary.simpleMessage("BMI 标准"),
         "bmi_thin": MessageLookupByLibrary.simpleMessage("偏瘦"),
         "bmi_value": MessageLookupByLibrary.simpleMessage("BMI"),
         "calculate_bmi": MessageLookupByLibrary.simpleMessage("计算 BMI"),
         "centimeter": MessageLookupByLibrary.simpleMessage("厘米"),
         "classification": MessageLookupByLibrary.simpleMessage("分类"),
+        "current_bmi_value":
+            MessageLookupByLibrary.simpleMessage("你当前的 BMI 值是："),
         "date": MessageLookupByLibrary.simpleMessage("日期"),
         "del": MessageLookupByLibrary.simpleMessage("删除"),
         "free_calculation":

@@ -23,5 +23,8 @@
   "remark": "Remark",
   "bmi_value": "BMI",
   "op": "Action",
-  "del": "Del"
+  "del": "Del",
+  "current_bmi_value": "What is your current BMI value",
+  "bmi_standard": "BMI Standard"
+
 }

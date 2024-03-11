@@ -299,6 +299,26 @@ class S {
       args: [],
     );
   }
+
+  /// `What is your current BMI value`
+  String get current_bmi_value {
+    return Intl.message(
+      'What is your current BMI value',
+      name: 'current_bmi_value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BMI Standard`
+  String get bmi_standard {
+    return Intl.message(
+      'BMI Standard',
+      name: 'bmi_standard',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

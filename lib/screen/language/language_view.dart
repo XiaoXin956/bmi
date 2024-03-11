@@ -29,8 +29,9 @@ class _LanguageViewState extends State<LanguageView> {
 
   Widget buildUI() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        Text("语言"),
+        Icon(Icons.language, color: Colors.blue, size: 20,),
         TextButton(
             onPressed: () {
               rootCubit?.changeLanguage("zh");
@@ -40,7 +41,7 @@ class _LanguageViewState extends State<LanguageView> {
             onPressed: () {
               rootCubit?.changeLanguage("en");
             },
-            child: Text("English", style: TextStyle(color: selectLanguageCode == "zh" ? Colors.blue : Colors.black)))
+            child: Text("English", style: TextStyle(color: selectLanguageCode == "en" ? Colors.blue : Colors.black)))
       ],
     );
   }
