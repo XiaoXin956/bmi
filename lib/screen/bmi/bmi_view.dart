@@ -130,8 +130,9 @@ class _BmiViewState extends State<BmiView> {
               textWidget(text: "${S.of(context).save_bmi}"),
             ],
           ),
-          ElevatedButton(
-              onPressed: () {
+          InkWell(
+              onTap: () {
+
                 bmiCubit?.calculateBmi(kg: kgValue, heightValue: heightValue, checkSaveData: checkSaveData);
               },
               child: textWidget(text: "${S.of(context).calculate_bmi}")),
@@ -157,8 +158,8 @@ class _BmiViewState extends State<BmiView> {
                     width: 30,
                   ),
                 ),
-                Expanded(flex:2,child: textWidget(text: "${S.of(context).classification}")),
-                Expanded(flex:2,child: textWidget(text: "${S.of(context).bmi_range}")),
+                Expanded(flex: 2, child: textWidget(text: "${S.of(context).classification}")),
+                Expanded(flex: 2, child: textWidget(text: "${S.of(context).bmi_range}")),
               ],
             ),
           ),
@@ -220,16 +221,17 @@ class _BmiViewState extends State<BmiView> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    (bmiValue!=0 && bmiValue >= minValue && bmiValue <= maxValue)
-                                        ? SizedBox(
-                                            width: 20,
-                                            child: Icon(
-                                              Icons.arrow_forward_ios_sharp,
-                                              color: Colors.white,
-                                            ))
-                                        : SizedBox(
-                                            width: 20,
-                                          )
+                                    SizedBox(
+                                      width: 20,
+                                      child: AnimatedSwitcher(
+                                          duration: const Duration(seconds: 5),
+                                          child:
+                                          (bmiValue != 0 && bmiValue >= minValue && bmiValue <= maxValue)? Icon(
+                                            Icons.arrow_forward_ios_sharp,
+                                            color: Colors.black,
+                                            size: 15,
+                                          ):Icon(Icons.add,color: Colors.transparent,))),
+
                                   ],
                                 )),
                             Expanded(flex: 2, child: textWidget(text: "${label}")),

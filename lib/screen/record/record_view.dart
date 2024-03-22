@@ -133,6 +133,8 @@ class RecordView extends StatelessWidget {
                     DataCell(TextButton(
                       onPressed: () {
                         recordCubit?.delBmiData(index: key, key: value.id.toString());
+                        // 刷新
+                        recordCubit?.searchBmiData();
                       },
                       child: Text("${S.of(context).del}"),
                     )),
