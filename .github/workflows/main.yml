@@ -30,7 +30,7 @@ jobs:
           git config --global user.name gitHubName
           git status
           # 更改此远程URL，例如查看您的远程URL是 https://github.com/XiaoXin956/bmi.git 然后改成以下内容
-          git remote add origin https://${{secrets.commit_secret}}@github.com/JKE7-supplier/flutter_web_actions_build.git
+          git remote add origin https://${{secrets.commit_secret}}@github.com/XiaoXin956/bmi.git
           git checkout -b gh-pages
           git add --all
           git commit -m "update"
