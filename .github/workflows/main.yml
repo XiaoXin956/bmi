@@ -25,9 +25,9 @@ jobs:
           cd build/web
           git init
           # 改成你的提交邮箱
-          git config --global user.email gitHubEmail
+          git config --global user.email 18813949954@163.com
           # 改成你的提交用户名
-          git config --global user.name gitHubName
+          git config --global user.name zhh
           git status
           # 更改此远程URL，例如查看您的远程URL是 https://github.com/XiaoXin956/bmi.git 然后改成以下内容
           git remote add origin https://${{secrets.commit_secret}}@github.com/XiaoXin956/bmi.git
