@@ -1,10 +1,10 @@
 {
   "title": "BMI",
-  "title_content": "Free Online BMI calculator",
+  "title_content": "BMI calculator",
   "title_sub": "The body mass index (BMI), or Quetelet index, is used to estimate a healthy body weight based on a person's height.",
   "free_calculation": "Free calcuate your Body Mass Index (BMI)",
-  "me_height": "My height:",
-  "me_kg": "My weight:",
+  "me_height": "Height:",
+  "me_kg": "Weight:",
   "unit": "unit",
   "centimeter": "cm",
   "kg": "kg",

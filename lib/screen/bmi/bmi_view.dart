@@ -14,7 +14,6 @@ class BmiView extends StatefulWidget {
 }
 
 class _BmiViewState extends State<BmiView> {
-  bool checkSaveData = false;
   double bmiValue = 0.0;
   BmiCubit? bmiCubit;
   List<dynamic> bmiData = [];
@@ -38,13 +37,8 @@ class _BmiViewState extends State<BmiView> {
         bmiCubit = context.read<BmiCubit>();
         if (state is BmiValueState) {
           bmiValue = state.bmiValue;
-          if (checkSaveData) {
-            context.read<RecordCubit>().searchBmiData();
-          }
         } else if (state is BmiInitDataState) {
           bmiData = state.bmiData;
-        } else if (state is BmiSaveDataState) {
-          checkSaveData = state.checkSave;
         }
         return buildUI();
       },
@@ -52,88 +46,61 @@ class _BmiViewState extends State<BmiView> {
   }
 
   Widget buildUI() {
-    return Column(
-      children: <Widget>[
-        h(20),
-        textWidget(text: S.of(context).title_content, textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        h(15),
-        Text(S.of(context).title_sub),
-        h(15),
-        LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            final Widget child;
-            if (constraints.maxWidth > 1000) {
-              // 横屏显示
-              child = Row(
-                children: [
-                  Expanded(child: bmiCalculate()),
-                  Expanded(child: bmiIcon()),
-                ],
-              );
-            } else {
-              // 竖屏显示
-              child = Column(
-                children: [
-                  bmiCalculate(),
-                  bmiIcon(),
-                ],
-              );
-            }
-            return child;
-          },
-        )
-      ],
+    return SizedBox(
+      width: 800,
+      child: Column(
+        children: <Widget>[
+          h(20),
+          textWidget(text: S.of(context).title_content, textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          h(15),
+          Text(S.of(context).title_sub),
+          h(15),
+          bmiCalculate(),
+          bmiIcon(),
+        ],
+      ),
     );
   }
 
   Widget bmiCalculate() {
     return Container(
-      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white
+      ),
+      margin: EdgeInsets.all(5),
       child: Column(
         children: [
-          h(15),
-          textWidget(text: S.of(context).free_calculation),
-          h(15),
           textWidget(text: (bmiValue > 0) ? "${S.of(context).current_bmi_value}${bmiValue}" : ""),
           h(15),
           Row(children: [
-            Expanded(flex: 1, child: textWidget(text: S.of(context).me_height)),
+            Expanded(flex: 1, child: textWidget(text: "${S.of(context).me_height}(cm)")),
             Expanded(
-                flex: 7,
+                flex: 6,
                 child: TextField(
-                    decoration: InputDecoration(),
+                    decoration: InputDecoration(border: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),
                     onChanged: (value) {
                       heightValue = value;
                     })),
-            textWidget(text: "${S.of(context).unit}: ${S.of(context).centimeter}"),
           ]),
           h(15),
           Row(children: [
-            Expanded(flex: 1, child: textWidget(text: "${S.of(context).kg}")),
+            Expanded(flex: 1, child: textWidget(text: "${S.of(context).me_kg}(kg)")),
             Expanded(
-                flex: 7,
+                flex: 6,
                 child: TextField(
+                  decoration: InputDecoration(border: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),
                   onChanged: (value) {
                     kgValue = value;
                   },
                 )),
-            textWidget(text: "${S.of(context).unit}: ${S.of(context).kg}"),
           ]),
           h(15),
-          Row(
-            children: [
-              Checkbox(
-                  value: checkSaveData,
-                  onChanged: (value) {
-                    bmiCubit?.updateSaveData(checkSave: value ?? false);
-                  }),
-              textWidget(text: "${S.of(context).save_bmi}"),
-            ],
-          ),
-          InkWell(
-              onTap: () {
 
-                bmiCubit?.calculateBmi(kg: kgValue, heightValue: heightValue, checkSaveData: checkSaveData);
+          ElevatedButton(
+              onPressed: () {
+                bmiCubit?.calculateBmi(kg: kgValue, heightValue: heightValue, );
               },
               child: textWidget(text: "${S.of(context).calculate_bmi}")),
         ],
@@ -144,7 +111,9 @@ class _BmiViewState extends State<BmiView> {
   Widget bmiIcon() {
     return Container(
       margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.grey, width: 1)),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.grey, width: 1)),
       child: Column(
         children: [
           textWidget(text: "${S.of(context).bmi_standard}"),

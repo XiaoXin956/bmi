@@ -4,7 +4,7 @@ import 'package:bmi/screen/bmi/bmi_cubit.dart';
 import 'package:bmi/screen/bmi/bmi_view.dart';
 import 'package:bmi/screen/home_page.dart';
 import 'package:bmi/screen/record/record_cubit.dart';
-import 'package:bmi/utils/hive_utils.dart';
+import 'package:bmi/utils/sp_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,7 +14,7 @@ GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  HiveUtils.initHive();
+  SPUtils.instance.init();
 
   runApp( MyApp());
 }

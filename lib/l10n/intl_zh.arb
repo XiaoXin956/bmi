@@ -1,10 +1,10 @@
 {
   "title": "BMI",
-  "title_content": "免费在线 BMI 计算器",
+  "title_content": "BMI指数计算器",
   "title_sub": "身体质量指数 (Body Mass Index, 简称BMI), 亦称克托莱指数, 是目前国际上常用的衡量人体胖瘦程度以及是否健康的一个标准。BMI 值超标，意味着你必须减肥了。",
   "free_calculation": "免费计算你的身体质量指数 (BMI)",
-  "me_height": "我的身高",
-  "me_kg": "我的体重",
+  "me_height": "身高",
+  "me_kg": "体重",
   "unit": "单位",
   "centimeter": "厘米",
   "kg": "千克",

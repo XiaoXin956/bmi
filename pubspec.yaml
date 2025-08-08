@@ -15,10 +15,10 @@ dependencies:
 
   flutter_bloc:
   equatable:
-  hive:
-  hive_flutter:
   graphic:
   peanut: ^5.1.0
+  shared_preferences:
+  url_launcher:
 
   cupertino_icons: ^1.0.2
 

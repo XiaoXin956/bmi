@@ -1,4 +1,3 @@
-
 import 'package:bmi/screen/bmi/bmi_view.dart';
 import 'package:bmi/screen/language/language_view.dart';
 import 'package:bmi/screen/record/record_view.dart';
@@ -18,14 +17,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // 选择语言部分
-            LanguageView(),
-            BmiView(),
-            RecordView(),
-
-          ],
+        child: Container(
+          decoration: BoxDecoration(gradient: LinearGradient(colors: [Color(0xffF2AF83), Color(0xffFFCC70)])),
+          child: Column(
+            children: [
+              // 选择语言部分
+              LanguageView(),
+              BmiView(),
+              RecordView(),
+            ],
+          ),
         ),
       ),
     );

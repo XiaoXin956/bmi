@@ -15,13 +15,6 @@ class BmiInitDataState extends BmiState {
   List<Object?> get props => [bmiData];
 }
 
-class BmiSaveDataState extends BmiState {
-  bool checkSave;
-  BmiSaveDataState({required this.checkSave});
-  @override
-  List<Object?> get props => [checkSave];
-}
-
 class BmiValueState extends BmiState {
 
   dynamic random;
